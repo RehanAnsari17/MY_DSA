@@ -1,0 +1,43 @@
+def expo(mid,n):
+    ans = 1
+    while ( n>0):
+        if (n%2 == 1):
+            ans = ans * mid
+            n = n-1
+        else:
+            mid = mid * mid
+            n = n//2
+    return ans 
+    
+# RETURN 1 IF == NUM
+# RETURN 0 IF < NUM
+# RETURN 2 IF > NUM
+def easy(mid,n,num):
+    ans = 1
+    for i in range(n):
+        ans = ans * mid
+        if ans > num:
+            return 2
+    if ans == num:
+        return 1
+    return 0    
+        
+
+def nth_root(num , n):
+    low = 1
+    high = num
+    while(low<=high):
+        mid = (low + high)//2
+        midN = easy(mid,n,num)
+        if (midN == 1):
+            return mid
+        elif (midN == 0):
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1        
+    
+num = 27    
+n = 3
+print(nth_root(num,n))
+            

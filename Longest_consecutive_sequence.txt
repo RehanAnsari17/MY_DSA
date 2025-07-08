@@ -1,0 +1,33 @@
+def longest_cs_sequence1(arr,n):
+    #OPTIMAL SOLN
+    x = set(arr)
+    longest = 1
+    #for i in arr:
+    #    x.add(i)
+    for i in x:
+        if (i-1) not in x:
+            c = 1
+            current = i
+            while((current+1) in x ):
+                current = current+1
+                c += 1
+            longest = max(longest,c)
+    return longest
+    
+def longest_cs_sequence(arr,n):
+    #BETTER SOLN
+    c = 0
+    longest = 1
+    last_smaller = arr[0]
+    x = sorted(arr)
+    for i in range(n):
+        if x[i]-1 == last_smaller:
+            c +=1
+            last_smaller = x[i]
+        elif x[i] != last_smaller:
+            c = 1
+            last_smaller = x[i]
+        longest = max(longest,c)
+    return longest    
+arr = [102,4,100,1,101,3,2,1,1]    
+print(longest_cs_sequence1(arr,len(arr)))

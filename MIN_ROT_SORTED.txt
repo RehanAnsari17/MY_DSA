@@ -1,0 +1,54 @@
+def minimum_rotated_sorted(nums):
+    # FOR NON UNIQUE ELEMENTS 
+    n = len(nums)
+    low = 0
+    high = n-1
+    ans = 99999
+    while(low <= high):
+        mid = (low+high)//2
+        #if search space is sorted
+        if (nums[low] <= nums[high]):
+            ans = min(ans,nums[low])
+        # low  = mid = high
+        if(nums[low] == nums[mid] and nums[mid] == nums[high]):
+            low = low + 1
+            high = high - 1
+            continue
+
+        # Means left side is sorted    
+        if (nums[low] <= nums[mid]):
+            ans = min(ans,nums[low])
+            low = mid + 1 
+        # Means right side is sorted    
+        else:
+            ans = min(ans,nums[mid])
+            high = mid - 1
+    return ans
+    
+def minimum_rotated_sorted(nums):
+    #FOR UNIQUE ELEMENTS ONLY
+    n = len(nums)
+    low = 0
+    high = n-1
+    ans = 99999
+    while(low <= high):
+        mid = (low+high)//2
+        #if search space is sorted
+        if (nums[low] <= nums[high]):
+            ans = min(ans,nums[low])
+            break
+        # Means left side is sorted    
+        if (nums[low] <= nums[mid]):
+            ans = min(ans,nums[low])
+            low = mid + 1 
+        # Means right side is sorted    
+        else:
+            ans = min(ans,nums[mid])
+            high = mid - 1
+    return ans
+
+
+# arr = [4,5,1,2,3]
+# arr = [10,1,10,10,10]
+arr = [3,1,3]
+print(minimum_rotated_sorted(arr))

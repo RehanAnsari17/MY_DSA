@@ -1,0 +1,29 @@
+def single_element(arr,n):
+    if (n == 1):
+        return arr[0]
+    if (arr[0] != arr[1]):
+        return arr[0]
+        
+    if (arr[n-1] != arr[n-2]):
+        return arr[n-1]    
+    low = 1
+    high = n-2
+    while(low <= high):
+        mid = (low + high)//2
+        if (arr[mid] != arr[mid-1] and arr[mid] != arr[mid+1]):
+            return arr[mid]
+        # FOR LEFT HALF, (EVEN,ODD) -->ELEMENT IS ON RIGHT HALF, ELIMINATE LEFT HALF
+        if ((mid%2==1 and arr[mid-1] == arr[mid]) or (mid%2 == 0 and arr[mid+1] == arr[mid])): # FIRST CHECK IF STANDING AT ODD,PREVIOUS ELEMENT MUST BE EVEN INDEX AND SHOULD BE EQUAL TO IT
+        # SECOND CHECK IF STANDING AT EVEN , NEXT ELEMENT MUST BE ODD INDEX AND MUST BE EQUAL TO IT
+            low = mid + 1   # ELIMINATE LEFT HALF
+            
+         # FOR RIGHT HALF, (ODD,EVEN) -->ELEMENT IS ON LEFT HALF, ELIMINATE RIGHT HALF    
+        else:
+            high = mid - 1   # ELIMINATE RIGHT HALF
+    return -1 
+    
+    
+arr = [1,1,2,2,3,3,4,4,5,5,6]
+n = len(arr)
+print(single_element(arr,n))
+        

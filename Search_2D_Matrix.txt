@@ -1,0 +1,41 @@
+def binary_search(arr,n,target):
+    low = 0
+    high = n-1
+    while(low <= high):
+        mid = (low + high)//2  # mid = low + (high - low)//2 ->to avid overflow case
+        if(arr[mid] == target):
+            return True
+        elif(target > arr[mid]):
+            low = mid +1
+        else:
+            high = mid-1
+    return False
+    
+def search_twoD_Matrix(matrix,n,m,target):
+	#BETTER CASE : O(N*(LOG M))
+    for i in range(n):
+        if (matrix[i][0] <= target) and (matrix[i][m-1] >= target):
+            return binary_search(matrix[i],m,target)
+
+
+def search_twoD_Matrix1(matrix,n,m,target):
+	#OPTIMAL CASE : O(LOG(N*M))
+    low = 0
+    high = (n*m)-1
+    while(low <= high):
+        mid = (low + high)//2  # mid = low + (high - low)//2 ->to avid overflow case
+        row = mid//m   #IMPORTANT
+        col = mid % m	#IMPORTANT
+        if(matrix[row][col] == target):
+            return True
+        elif(target > matrix[row][col]):
+            low = mid +1
+        else:
+            high = mid-1
+    return False
+
+matrix = [[3,4,7,9],[11,15,19,20],[21,25,26,29]]
+n = len(matrix)
+m = len(matrix[0])
+target = 27
+print(search_twoD_Matrix(matrix,n,m,target))

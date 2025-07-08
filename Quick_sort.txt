@@ -1,0 +1,27 @@
+
+def func(arr,low,high):
+    pivot = arr[low]
+    i = low
+    j=high
+    while (i<j):
+        while(arr[i]<=pivot and i < high):
+            i+=1
+        while(arr[j]>pivot and j >=low+1):
+            j-=1
+        if(i<=j):
+            arr[i],arr[j]=arr[j],arr[i]
+        arr[low],arr[j] = arr[j],arr[low]
+    return j
+
+def qs(arr,low,high):
+    if(low<high):
+        PI = func(arr,low,high)
+        qs(arr,low,PI-1)
+        qs(arr,PI+1,high)
+    return arr
+  
+    
+    
+arr=[7,6,1,4,2,5,3,1,4,9] 
+x = qs(arr,0,len(arr)-1)
+print(x)

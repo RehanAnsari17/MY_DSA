@@ -1,0 +1,34 @@
+def max_subarray_xor_sum1(arr,k):
+    #BRUTE SOLN
+    freq = {}
+    count = 0
+    xor =0
+    freq[xor] =1
+    n = len(arr)
+    for i in range(n):
+        xor=xor^arr[i]
+        x = xor^k
+        if x in freq:
+            count+= freq[x]
+        if xor in freq:
+            freq[xor] +=1
+        else:
+            freq[xor]=1
+        print(freq)    
+    return count    
+
+def max_subarray_xor_sum(arr,k):
+    #BETTER SOLN
+    count = 0
+    n = len(arr)
+    for i in range(n):
+        xor = 0
+        for j in range(i,n):
+            xor = xor^arr[j]
+            if(xor == k ):
+                count += 1
+    return count
+    
+arr = [4,2,2,6,4]
+k = 6
+print(max_subarray_xor_sum1(arr,k))

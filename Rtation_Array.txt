@@ -1,0 +1,28 @@
+def left_rotate(arr,d):
+    n= len(arr)
+    d = d % n
+    temp=[]
+    for i in range(d):
+        temp.append(arr[i])
+    for i in range(d,n):
+        arr[i-d] = arr[i]
+    for i in range(n-d,n):
+        arr[i] = temp[i-(n-d)]
+    return arr  
+    
+def an(arr,d):
+    n= len(arr)
+    d = d % n
+    arr = ((arr[0:d])[::-1] + (arr[d:n])[::-1])[::-1]
+    return arr
+
+def right_rotate(arr, d):
+    n = len(arr)
+    d = d % n
+    arr = ((arr[0:n-d])[::-1] + (arr[n-d:n])[::-1])[::-1]
+    return arr    
+    
+arr = [1,2,3,4,5,6,7]        
+#print(left_rotate(arr,3))
+print(an(arr,3))
+print(right_rotate(arr,3))

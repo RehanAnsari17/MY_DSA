@@ -1,0 +1,32 @@
+#*******REMEMBER ARRAY SHOULD BE SORTED FOR BINARY SEARCH**********
+
+def recursion_binary_search(arr,n,low,high,target):
+    if(low > high):    #BASE CASE
+        return -1 
+    mid = (low + high)//2     ## mid = low + (high - low)//2 ->to avid overflow case
+    if(arr[mid] == target):
+        return mid
+    elif(target > arr[mid]):
+        return recursion_binary_search(arr,n,mid+1,high,target)
+
+    else:
+        return recursion_binary_search(arr,n,low,mid-1,target)
+        
+def binary_search(arr,n,target):
+    low = 0
+    high = n-1
+    while(low <= high):
+        mid = (low + high)//2  # mid = low + (high - low)//2 ->to avid overflow case
+        if(arr[mid] == target):
+            return mid
+        elif(target > arr[mid]):
+            low = mid +1
+        else:
+            high = mid-1
+    return -1
+    
+arr = [3, 4, 7, 12, 15, 25, 36, 88, 99]    
+target = 25
+n = len(arr)
+# print(binary_search(arr,n,target))
+print(recursion_binary_search(arr,n,0,n-1,target))

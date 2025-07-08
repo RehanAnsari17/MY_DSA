@@ -1,0 +1,21 @@
+#MAJORITY ELEMENT - MOORE VOTING ALGORITHM
+def me(arr,n):
+    c = 0
+    for i in range(n):
+        if(c == 0):
+            el = arr[i]
+            c+=1
+        elif(arr[i]==el):
+            c +=1
+        else:
+            c-=1
+    count=0        
+    for i in range(n):
+        if(arr[i]==el):
+            count+=1
+    if(count > n//2):
+        return el
+    return -1
+    
+arr = [7,7,5,7,5,1,5,7,5,5,7,7,5,5,5,5]    
+print(me(arr,len(arr)))

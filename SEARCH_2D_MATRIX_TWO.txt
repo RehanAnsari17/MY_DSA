@@ -1,0 +1,41 @@
+# HERE IN THIS QNS THE ROWS ARE SORTED AND COLS ARE SORTED BUT NOT WHOLE MATRIX IS SORTED
+
+def binary_search(arr,n,target):
+    low = 0
+    high = n-1
+    while(low <= high):
+        mid = (low + high)//2  # mid = low + (high - low)//2 ->to avid overflow case
+        if(arr[mid] == target):
+            return mid
+        elif(target > arr[mid]):
+            low = mid +1
+        else:
+            high = mid-1
+    return -1
+    
+def search_twoD_Matrix(matrix,n,m,target):
+    # BETTER SOLN : 0(n*log(m))
+    for i in range(n):
+        index = binary_search(matrix[i],n,target)
+        if index != -1:
+            return [i,index]
+    return [-1,-1]
+    
+def search_twoD_Matrix1(matrix,n,m,target):
+    #OPTIMAL SOLN : 0(n+m)
+    row = 0
+    col = m-1
+    while(row < n and col >= 0):
+        if(matrix[row][col] == target):
+            return [row,col]
+        elif(target > matrix[row][col]):
+            row += 1
+        else:
+            col -= 1
+    return [-1,-1]
+
+matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
+n = len(matrix)
+m = len(matrix[0])
+target = 16
+print(search_twoD_Matrix1(matrix,n,m,target))

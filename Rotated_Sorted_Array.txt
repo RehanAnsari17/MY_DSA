@@ -1,0 +1,29 @@
+def search_rotated_sorted(arr,target):
+    # FOR UNIQUE ELEMENTS ONLY
+    n = len(arr)
+    low = 0
+    high = n-1
+
+    while(low <= high):
+        mid = (low+high)//2
+        if (arr[mid] == target):
+            return mid
+        
+        # Means left side is sorted    
+        if (arr[low] <= arr[mid]):
+            if(arr[low] <= target and arr[mid] >= target):
+                high = mid-1
+            else:
+                low = mid + 1
+                
+        # Means right side is sorted    
+        else:
+            if(arr[mid] <= target and arr[high] >= target):
+                low = mid + 1
+            else:
+                high = mid - 1
+    return -1
+
+arr = [7,8,9,10,1,2,3,4,5,6]
+target = 1
+print(search_rotated_sorted(arr,target))

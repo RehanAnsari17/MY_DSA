@@ -1,0 +1,37 @@
+def floor_ceil_search(arr,n,target):
+    # FLOOR -> LARGEST NO IN ARRAY <= TARGET
+    # CEIL -> SMALLEST NO IN ARRAY >= TARGET -> SAME AS LOWER BOUND THiS ONE 
+    def ceil_value(arr,n,target):   #SAME AS LOWER BOUND 
+        low = 0
+        high = n-1
+        ans = -1
+        while(low <= high):
+            mid = (low + high)//2  # mid = low + (high - low)//2 ->to avid overflow case
+            if (arr[mid] >= target):
+                ans = arr[mid]
+                high =mid-1
+            else:
+                low =mid + 1
+        return ans
+        
+    def floor_value(arr,n,target):   #SAME AS LOWER BOUND 
+        low = 0
+        high = n-1
+        ans = -1
+        while(low <= high):
+            mid = (low + high)//2  # mid = low + (high - low)//2 ->to avid overflow case
+            if (arr[mid] <= target):
+                ans = arr[mid]
+                low = mid + 1
+            else:
+                high = mid - 1
+        return ans   
+        
+    floor = floor_value(arr,n,target)
+    ceil = ceil_value(arr,n,target)
+    return (floor,ceil)
+    
+arr = [10,20,30,40,50]
+n = len(arr)
+target = 25
+print(floor_ceil_search(arr,n,target))

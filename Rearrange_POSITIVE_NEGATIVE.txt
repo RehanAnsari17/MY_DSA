@@ -1,0 +1,44 @@
+def rearrange_equal(arr,n):
+    pos = []
+    neg = []
+    for i in arr:
+        if (i>0):
+            pos.append(i)
+        else:
+            neg.append(i)
+    print(pos)
+    print(neg)
+    for i in range(n//2):
+        arr[2*i]=pos[i]
+        arr[(2*i)+1] = neg[i]
+    return arr
+    
+def rearrange_unequal(arr,n):
+    pos = []
+    neg = []
+    for i in arr:
+        if (i>0):
+            pos.append(i)
+        else:
+            neg.append(i)
+    if (len(pos)>len(neg)):
+        for i in range(len(neg)):
+            arr[2*i]=pos[i]
+            arr[(2*i)+1] = neg[i]
+        index = 2*(len(neg))
+        for i in range (len(neg),len(pos)):
+            arr[index] = pos[i]
+            index+=1
+    else:
+        for i in range(len(pos)):
+            arr[2*i]=pos[i]
+            arr[(2*i)+1] = neg[i]
+        index = 2*(len(pos))
+        for i in range (len(pos),len(neg)):
+            arr[index] = neg[i]
+            index+=1
+    return arr    
+    
+#arr = [3,-1,-2,4,-5,6]
+arr = [3,-1,-2,4,-5,6,2,5]
+print(rearrange_unequal(arr,len(arr)))

@@ -1,0 +1,33 @@
+def subarray(arr,n):
+    max_sum = -999999
+    for i in range(n):
+        s = 0
+        for j in range(i,n):
+            s += arr[j]
+            max_sum = max(max_sum,s)
+    return max_sum
+
+def kadane(arr,n):
+    s = 0
+    maxi = -999999
+    start = -1
+    end = -1
+    for i in range(n):
+        if (s == 0):
+            start = i
+        s = s + arr[i]
+        if(s > maxi):
+            maxi = s
+            ans_start = start
+            ans_end = i
+            
+        if(s < 0):
+            s = 0
+    return [ans_start,ans_end] # returns the indexes
+    
+    #if(maxi < 0):
+    #    return []
+    #return maxi  
+arr = [-2,-3,4,-1,-2,1,5,-3]    
+#print(subarray(arr,len(arr)))
+print(kadane(arr,len(arr)))

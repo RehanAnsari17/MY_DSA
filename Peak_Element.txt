@@ -1,0 +1,41 @@
+def peak_element1(arr,n):
+    # OPTIMAL SOLN
+    if (n==1):
+        return 0
+    if (arr[0] > arr[1]):
+        return 0
+    if (arr[n-1] > arr[n-2]):
+        return n-1
+        
+    low =1
+    high = n-2
+    while (low<=high):
+        mid = (low+high)//2
+        if (arr[mid] > arr[mid+1] and arr[mid] > arr[mid-1]):
+            return mid
+        elif (arr[mid] > arr[mid+1]): # THIS MEANS MID IS ON THE DECREASING SLOPE SO WE CANT FIND PEAK IN THIS SIDE . SO TRIM DOWN THE RIGHT SIDE
+            high = mid-1
+        else: # THIS MEANS MID IS ON THE INCREASING SLOPE SO WE CANT FIND PEAK IN THIS SIDE . SO TRIM DOWN THE LEFT SIDE
+            low = mid + 1
+    return -1        
+
+
+def peak_element(arr,n):
+    # BRUTE SOLN
+    ans = []
+    for i in range(n):
+        if (i == 0 and arr[i]>arr[i+1]):
+            ans.append(arr[i])
+        elif (i == n-1):
+            if (arr[i]>arr[i-1]):
+                ans.append(arr[i])
+        else:
+            if (arr[i] > arr[i+1] and arr[i] > arr[i-1]):
+                ans.append(arr[i])
+        # print("runned = ",i)    
+    return ans
+    
+arr = [1,2,1,3,4,5,8,6,1]
+n = len(arr)
+print(peak_element1(arr,n))
+            

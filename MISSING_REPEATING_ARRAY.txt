@@ -1,0 +1,76 @@
+def repeating_missing(arr,n):
+    #OPTimAL SOlN 1
+    
+    #Sn and S2n are basic maths formula
+    Sn = (n*(n+1))//2
+    S2n = (n*(n+1)*(2*n + 1))//6
+    S = 0
+    S2 = 0
+    for i in arr:
+        S = S + i
+        S2 = S2 + (i*i)
+    val1 = S - Sn # X - Y 
+    val2 = S2 - S2n # X^2 - Y^2
+    val2 = val2//val1 # val2/(X-Y)
+    x = (val1 + val2)//2
+    y = val2 - x
+    return (x,y)
+    
+def repeating_missing1(arr,n):
+    #OPTimAL SOlN 2
+    
+    xor = 0
+    for i in range(n):
+        xor = xor ^ arr[i]
+        xor = xor ^ (i+1)
+    bitNo = 0
+    while(1):
+        if ((xor & (1 << bitNo)) != 0):
+            break
+        bitNo+=1
+    zero = 0 # REPEATING NUMBER(ASSUME)
+    one = 0 # MISSIng NUMBER(ASSUME)
+    for i in range(n):
+        #part of one club
+        if ((arr[i] & (1<<bitNo)) != 0):
+            one = one ^ arr[i]
+        #part of zero club
+        else:
+            zero = zero ^ arr[i]
+    
+    for i in range(1,n+1):
+        #part of one club
+        if ((i & (1<<bitNo)) != 0):
+            one = one ^ i
+        #part of zero club
+        else:
+            zero = zero ^ i
+    
+    c = 0
+    for i in range(n):
+        if (arr[i] == zero):
+            c +=1
+    
+    if(c == 2):
+        return (zero,one)
+    return (one,zero)        
+
+def repeating_missing2(arr,n):
+    #BETTER SOLN
+    freq = [0]*(n+1)
+    repeating = -1
+    missing = -1
+    for i in range(n):
+        freq[arr[i]] += 1
+    for i in range(1,len(freq)) :
+        if(freq[i] == 2):
+            repeating = i
+        elif (freq[i]==0):
+            missing = i
+        if (repeating != -1 and missing != -1):
+            break
+    return (repeating,missing)
+    
+arr = [ 2,4,1,3,5,1]
+n = len(arr)
+print(repeating_missing2(arr,n))

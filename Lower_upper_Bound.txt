@@ -1,0 +1,35 @@
+def bs_lower_bound(arr,n,target):   #YOU CAN USE THIS FOR SEARCH INSERT POSITION QUESTION
+    low = 0
+    high = n-1
+    ans = n
+    while(low <= high):
+        mid = (low + high)//2  # mid = low + (high - low)//2 ->to avid overflow case
+        if (arr[mid] >= target):
+            ans = mid
+            high =mid-1
+        else:
+            low =mid + 1
+    return ans
+
+
+def bs_upper_bound(arr,n,target):
+    low = 0
+    high = n-1
+    ans = n
+    while(low <= high):
+        mid = (low + high)//2  # mid = low + (high - low)//2 ->to avid overflow case
+        if (arr[mid] > target):
+            ans = mid
+            high =mid-1
+        else:
+            low =mid + 1
+    return ans    
+    
+
+    
+# arr = [3, 4, 7, 12, 15, 25, 36, 88, 99]    
+arr = [2,3,6,7,8,8,11,11,11,12]    
+target = 11
+n = len(arr)
+# print(bs_lower_bound(arr,n,target))
+print(bs_upper_bound(arr,n,target))
