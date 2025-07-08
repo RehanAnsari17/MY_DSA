@@ -1,0 +1,33 @@
+def max_el_index(matrix,n,m,col):
+    maxValue = -1
+    index = -1
+    for i in range(n):
+        if (matrix[i][col] > maxValue):
+            maxValue = matrix[i][col]
+            index = i
+    return index        
+            
+def peak_element(matrix):
+    # OPTIMAL SOLN : O(N * LOG M)
+    n = len(matrix)
+    m = len(matrix[0])
+    low = 0
+    high = m - 1
+    while(low <= high):
+        mid = (low + high)//2
+        maxRowIndex = max_el_index(matrix,n,m,mid)
+        left = matrix[maxRowIndex][mid - 1] if (mid - 1 >= 0) else -1
+        right = matrix[maxRowIndex][mid + 1] if (mid + 1 < m) else -1
+        
+        if (matrix[maxRowIndex][mid] > left and matrix[maxRowIndex][mid] > right):
+            return matrix[maxRowIndex][mid]   # return [maxrowIndex,mid]
+        elif (matrix[maxRowIndex][mid] < left):
+            high = mid - 1
+        else:
+            low = mid + 1
+    return [-1,-1]        
+            
+
+matrix = [[1,2,5,1,4,5],[2,9,3,2,3,2],[1,7,6,0,1,3],[3,6,2,3,7,2]] 
+print(peak_element(matrix))
+            

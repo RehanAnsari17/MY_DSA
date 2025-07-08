@@ -1,0 +1,41 @@
+def bs_upper_bound(arr,n,target):
+    low = 0
+    high = n-1
+    ans = n
+    while(low <= high):
+        mid = (low + high)//2  # mid = low + (high - low)//2 ->to avid overflow case
+        if (arr[mid] > target):
+            ans = mid
+            high =mid-1
+        else:
+            low =mid + 1
+    return ans 
+    
+def countSmallEquals(matrix,n,m,mid):
+    count = 0 
+    for i in range(n):
+        count += bs_upper_bound(matrix[i],m,mid)
+    return count    
+    
+def median_row_wise(matrix):
+    n = len(matrix)
+    m = len(matrix[0])
+    low = 9999999
+    high = -9999999
+    for i in range(n):
+        low = min(low , matrix[i][0])
+        high = max(high , matrix[i][m-1])
+    
+    req = (n*m)//2        
+    while(low<=high):
+        mid = (low + high)//2
+        smallEquals = countSmallEquals(matrix,n,m,mid)
+        if smallEquals <=  req :
+            low = mid + 1
+        else:
+            high = mid - 1
+    return low
+
+matrix = [[1,5,7,9,11],[2,3,4,5,10],[9,10,12,14,16]] 
+print(median_row_wise(matrix))
+            
