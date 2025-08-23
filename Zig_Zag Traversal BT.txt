@@ -1,0 +1,58 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+        
+from collections import deque
+
+def zig_zag_order(root):
+    if not root:
+        return []
+
+    result = []          # Final list of lists
+    queue = deque([root])  # Use deque for efficient pop(0)
+    flag = True # True means go from Left to Right 
+                # False means go from right to left
+    
+    while queue:
+        level_size = len(queue)  # Number of nodes in this level
+        level = []               # Store current level nodes
+        for _ in range(level_size):
+            node = queue.popleft()   # Pop from queue
+            if flag == True:
+                level.append(node.data)  # Add to current level list
+            else:
+                level.append(node.data)
+
+            # Add children if they exist
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+                
+        # If flag is False, reverse the collected level
+        if not flag:
+            level.reverse()   
+
+        result.append(level)  # Add this level to result
+        flag = not flag
+
+    return result
+    
+    
+root = Node(1)
+root.left = Node(2)
+root.right = Node(5)
+root.left.left = Node(3)
+root.left.right = Node(4)
+root.right.left = Node(6)
+root.right.right = Node(7)
+root.right.right.left = Node(8)
+root.right.right.right= Node(9) 
+# root.right.right.right.right.right = Node(10) #False
+
+
+# ----------------- USAGE -----------------
+print(zig_zag_order(root))
+

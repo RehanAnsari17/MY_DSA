@@ -1,0 +1,56 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+def all_pre_post_in(root):
+    pre = []
+    ino = []
+    post = []
+    
+    stack = []
+    stack.append([root,1])# initially insert this into stack with (root,value) as  root and 1
+    # if value == 1 : add it to preorder and increase its value to 2 and check for left
+    # if value == 2 : add it to inorder and increase its value to 3 and check for right
+    # if value == 3 : add it to postorder and pop the top of stack
+    
+    while stack:
+        pair = stack.pop()
+        if pair[1] == 1:
+            pre.append(pair[0].data)
+            pair[1] += 1
+            stack.append(pair)
+            
+            if (pair[0].left):
+                stack.append([pair[0].left,1])
+        
+        elif pair[1] == 2:
+            ino.append(pair[0].data)
+            pair[1] += 1
+            stack.append(pair)
+            
+            if (pair[0].right):
+                stack.append([pair[0].right,1])
+                
+        else:
+            post.append(pair[0].data)
+
+    return pre,ino,post    
+    
+    
+root = Node(1)
+root.left = Node(2)
+root.right = Node(5)
+root.left.left = Node(3)
+root.left.right = Node(4)
+root.right.left = Node(6)
+root.right.right = Node(7)
+
+# ----------------- USAGE -----------------
+x,y,z = all_pre_post_in(root)
+print("pre : ", x)
+print("\nino : ", y)
+print("\npost : ", z)
+

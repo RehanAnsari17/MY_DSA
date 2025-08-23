@@ -1,0 +1,92 @@
+# A class to represent a node in a binary tree
+class Node:
+    def __init__(self, data):
+        self.data = data        # Store the data for this node
+        self.left = None        # Pointer to the left child
+        self.right = None       # Pointer to the right child
+
+
+# A class to represent the Binary Tree itself
+class BinaryTree:
+    def __init__(self):
+        self.root = None        # Root of the tree (initially empty)
+
+    # Insert a node into the tree (Level Order Insertion)
+    def insert(self, data):
+        new_node = Node(data)
+
+        # If the tree is empty, make this node the root
+        if self.root is None:
+            self.root = new_node
+            return
+
+        # Use a queue to perform level-order traversal until
+        # we find an empty spot to insert the new node
+        queue = [self.root]
+        while queue:
+            current = queue.pop(0)
+
+            # Insert to the left if empty
+            if current.left is None:
+                current.left = new_node
+                return
+            else:
+                queue.append(current.left)
+
+            # Insert to the right if empty
+            if current.right is None:
+                current.right = new_node
+                return
+            else:
+                queue.append(current.right)
+
+    # Inorder Traversal (Left -> Root -> Right)
+    def inorder(self, node):
+        if node:
+            self.inorder(node.left)
+            print(node.data, end=" ")
+            self.inorder(node.right)
+
+    # Preorder Traversal (Root -> Left -> Right)
+    def preorder(self, node):
+        if node:
+            print(node.data, end=" ")
+            self.preorder(node.left)
+            self.preorder(node.right)
+
+    # Postorder Traversal (Left -> Right -> Root)
+    def postorder(self, node):
+        if node:
+            self.postorder(node.left)
+            self.postorder(node.right)
+            print(node.data, end=" ")
+
+
+# -------------------- USAGE --------------------
+if __name__ == "__main__":
+    # Create a BinaryTree object
+    bt = BinaryTree()
+
+    # Insert elements into the binary tree
+    bt.insert(1)
+    bt.insert(2)
+    bt.insert(3)
+    bt.insert(4)
+    bt.insert(5)
+    bt.insert(6)
+
+    # Tree structure now looks like:
+    #        1
+    #      /   \
+    #     2     3
+    #    / \   /
+    #   4   5 6
+
+    print("Inorder Traversal:")
+    bt.inorder(bt.root)  # Output: 4 2 5 1 6 3
+
+    print("\nPreorder Traversal:")
+    bt.preorder(bt.root)  # Output: 1 2 4 5 3 6
+
+    print("\nPostorder Traversal:")
+    bt.postorder(bt.root)  # Output: 4 5 2 6 3 1

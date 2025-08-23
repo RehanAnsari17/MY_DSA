@@ -1,0 +1,75 @@
+# Node class for BST
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    # Insert into BST (recursive)
+    def insert(self, root, data):
+        # If tree is empty, return new node
+        if root is None:
+            return Node(data)
+
+        # If data is smaller, go left
+        if data < root.data:
+            root.left = self.insert(root.left, data)
+        # If data is larger, go right
+        elif data > root.data:
+            root.right = self.insert(root.right, data)
+
+        # Return the unchanged node pointer
+        return root
+
+    # Inorder Traversal (gives sorted order for BST)
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.data, end=" ")
+            self.inorder(root.right)
+
+    # Preorder Traversal
+    def preorder(self, root):
+        if root:
+            print(root.data, end=" ")
+            self.preorder(root.left)
+            self.preorder(root.right)
+
+    # Postorder Traversal
+    def postorder(self, root):
+        if root:
+            self.postorder(root.left)
+            self.postorder(root.right)
+            print(root.data, end=" ")
+
+
+# -------------------- USAGE --------------------
+if __name__ == "__main__":
+    bst = BST()
+    root = None
+
+    # Insert nodes into BST
+    values = [50, 30, 70, 20, 40, 60, 80]
+    for v in values:
+        root = bst.insert(root, v)
+
+    # Tree structure:
+    #        50
+    #      /    \
+    #    30      70
+    #   /  \    /  \
+    # 20   40  60   80
+
+    print("Inorder Traversal (sorted):")
+    bst.inorder(root)   # Output: 20 30 40 50 60 70 80
+
+    print("\nPreorder Traversal:")
+    bst.preorder(root)  # Output: 50 30 20 40 70 60 80
+
+    print("\nPostorder Traversal:")
+    bst.postorder(root) # Output: 20 40 30 60 80 70 50
