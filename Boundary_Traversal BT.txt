@@ -1,0 +1,67 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+def isleaf(root):
+    if (not root.left and not root.right):
+        return True
+    return False
+    
+def addLeftBoundary(root,res):
+    curr = root.left
+    while curr != None:
+        if isleaf(curr) == False:
+            res.append(curr.data)
+        if curr.left != None:
+            curr = curr.left
+        else:
+            curr = curr.right
+
+def addRightBoundary(root,res):
+    curr = root.right
+    stack = []
+    while curr != None:
+        if isleaf(curr) == False:
+            stack.append(curr.data)
+        if curr.right != None:
+            curr = curr.right
+        else:
+            curr = curr.left
+    
+    for _ in range(len(stack)):
+        x = stack.pop()
+        res.append(x)
+        
+def addLeaves(root,res):
+    if isleaf(root):
+        res.append(root.data)
+        return
+    if root.left != None:
+        addLeaves(root.left,res)
+        
+    if root.right != None:
+        addLeaves(root.right,res) 
+    
+    
+root = Node(1)
+root.left = Node(2)
+root.right = Node(7)
+root.left.left = Node(3)
+root.left.left.right = Node(4)
+root.left.left.right.left = Node(5)
+root.left.left.right.right = Node(6)
+root.right.right = Node(8)
+root.right.right.left = Node(9)
+root.right.right.left.left = Node(10)
+root.right.right.left.right = Node(11)
+
+# ----------------- USAGE -----------------
+res = []
+if isleaf(root) == False:
+    res.append(root.data)
+addLeftBoundary(root,res)
+addLeaves(root,res)
+addRightBoundary(root,res)
+print(res)
